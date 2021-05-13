@@ -46,6 +46,6 @@ clone the repo https://github.com/sujaslnair/HLF-Organ.git
 
 1 Package ,install and instantiate chaincode
 
-2 for running ClientApp::~/project/clientApp$ npm start,and in browser use localhost:3000
+2 for running ClientApp::~/clientApp$ npm start,and in browser use localhost:3000
 
-3 For events:~/project/clientApp/routes$ node eventListner
+3 For events:~/clientApp/routes$ node eventListner
