@@ -1,0 +1,8 @@
+{
+    "index":{
+        "fields":["assetType","reqstDate","pPriority"]
+    },    
+    "name":"indexHospital",
+    "type":"json"
+}
+

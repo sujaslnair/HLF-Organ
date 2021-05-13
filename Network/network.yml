@@ -1,0 +1,285 @@
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+---
+- name: Deploy blockchain infrastructure and smart contracts
+  hosts: localhost
+  vars:
+    #
+    # For information on these configuration options, read the documentation:
+    # https://github.com/IBM-Blockchain/ansible-role-blockchain-platform-manager#example-playbook
+    #
+    infrastructure:
+      type: docker
+      docker:
+        network: organnet #name of the network
+     
+    organizations:
+      - &Donor  #it is the name of the organization
+        msp:            #
+          id: "DonorMSP" #Name of the MSP
+          admin:
+            identity: "DonorAdmin"
+            secret: "DonorAdminpw"
+          ibp:
+            display_name: "Donor MSP"
+        ca: &DonorCA     #Declaring CA of Donor
+          id: "DonorCA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: false
+          docker:     #url of donor ca container
+            name: ca.donor.organnet.com
+            hostname: ca.donor.organnet.com
+            port: 18050
+          ibp:
+            display_name: "Donor CA"
+        peers:
+          - &DonorPeer1
+            id: "DonorPeer1"
+            identity: "Donorpeer1"
+            secret: "Donorpeer1pw"
+            database_type: couchdb
+            tls:
+              enabled: false
+              identity: "Donorpeer1tls"
+              secret: "Donorpeer1tlspw"
+            docker:
+              name: peer0.donor.organnet.com
+              hostname: peer0.donor.organnet.com
+              port: 18051
+              chaincode_port: 18052
+              operations_port: 18053
+              couchdb:
+                name: couchdb0.donor.organnet.com
+                hostname: couchdb0.donor.organnet.com
+                port: 18054
+            ibp:
+              display_name: "donor Peer1"
+          - &DonorPeer2
+            id: "DonorPeer2"
+            identity: "Donorpeer2"
+            secret: "Donorpeer2pw"
+            database_type: couchdb
+            tls:
+              enabled: false
+              identity: "Donorpeer2tls"
+              secret: "Donorpeer2tlspw"
+            docker:
+              name: peer1.donor.organnet.com
+              hostname: peer1.donor.organnet.com
+              port: 18055
+              chaincode_port: 18056
+              operations_port: 18057
+              couchdb:
+                name: couchdb1.donor.organnet.com
+                hostname: couchdb1.donor.organnet.com
+                port: 18058
+            ibp:
+              display_name: "donor Peer2"
+          
+        nodes: "{{ playbook_dir }}/nodes/Donor"
+        wallet: "{{ playbook_dir }}/wallets/Donor"
+        gateways: "{{ playbook_dir }}/gateways/Donor"
+      - &Hospital
+        msp:
+          id: "HospitalMSP"
+          admin:
+            identity: "HospitalAdmin"
+            secret: "HospitalAdminpw"
+          ibp:
+            display_name: "Hospital MSP"
+        ca: &HospitalCA
+          id: "HospitalCA"
+          admin_identity: "Hospitalcaadmin"
+          admin_secret: "Hospitalcaadminpw"
+          tls:
+            enabled: false
+          docker:
+            name: ca.hospital.organnet.com
+            hostname: ca.hospital.organnet.com
+            port: 19050
+          ibp:
+            display_name: "Hospital CA"
+        peers:
+          - &HospitalPeer1
+            id: "HospitalPeer1"
+            identity: "Hospitalpeer1"
+            secret: "Hospitalpeer1pw"
+            database_type: couchdb
+            tls:
+              enabled: false
+              identity: "Hospitalpeer1tls"
+              secret: "Hospitalpeer1tlspw"
+            docker:
+              name: peer0.hospital.organnet.com
+              hostname: peer0.hospital.organnet.com
+              port: 19051
+              chaincode_port: 19052
+              operations_port: 19053
+              couchdb:
+                name: couchdb0.hospital.organnet.com
+                hostname: couchdb0.hospital.organnet.com
+                port: 19054
+            ibp:
+              display_name: "Hospital Peer1"
+          - &HospitalPeer2
+            id: "HospitalPeer2"
+            identity: "Hospitalpeer2"
+            secret: "Hospitalpeer2pw"
+            database_type: couchdb
+            tls:
+              enabled: false
+              identity: "Hospitalpeer2tls"
+              secret: "Hospitalpeer2tlspw"
+            docker:
+              name: peer1.hospital.organnet.com
+              hostname: peer1.hospital.organnet.com
+              port: 19055
+              chaincode_port: 19056
+              operations_port: 19057
+              couchdb:
+                name: couchdb1.hospital.organnet.com
+                hostname: couchdb1.hospital.organnet.com
+                port: 19058
+            ibp:
+              display_name: "Hospital Peer2"
+          
+        nodes: "{{ playbook_dir }}/nodes/Hospital"
+        wallet: "{{ playbook_dir }}/wallets/Hospital"
+        gateways: "{{ playbook_dir }}/gateways/Hospital"
+      - &GAO
+        msp:
+          id: "GAOMSP"
+          admin:
+            identity: "GAOAdmin"
+            secret: "GAOAdminpw"
+          ibp:
+            display_name: "GAO MSP"
+        ca: &GAOCA
+          id: "GAOCA"
+          admin_identity: "GAOadmin"
+          admin_secret: "GAOadminpw"
+          tls:
+            enabled: false
+          docker:
+            name: ca.gao.organnet.com
+            hostname: ca.gao.organnet.com
+            port: 20050
+          ibp:
+            display_name: "GAO CA"
+        peers:
+          - &GAOPeer1
+            id: "GAOPeer1"
+            identity: "GAOpeer1"
+            secret: "GAOpeer1pw"
+            database_type: couchdb
+            tls:
+              enabled: false
+              identity: "GAOpeer1tls"
+              secret: "GAOpeer1tlspw"
+            docker:
+              name: peer0.gao.organnet.com
+              hostname: peer0.gao.organnet.com
+              port: 20051
+              chaincode_port: 20052
+              operations_port: 20053
+              couchdb:
+                name: couchdb0.gao.organnet.com
+                hostname: couchdb0.gao.organnet.com
+                port: 20054
+            ibp:
+              display_name: "GAO Peer1"
+          
+        nodes: "{{ playbook_dir }}/nodes/GAO"
+        wallet: "{{ playbook_dir }}/wallets/GAO"
+        gateways: "{{ playbook_dir }}/gateways/GAO"
+      - &OrdererOrg
+        msp:
+          id: "OrdererMSP"
+          admin:
+            identity: "OrdererAdmin"
+            secret: "OrdererAdminpw"
+          ibp:
+            display_name: "Orderer MSP"
+        ca: &OrdererCA
+          id: "OrdererCA"
+          admin_identity: "admin"
+          admin_secret: "adminpw"
+          tls:
+            enabled: false
+          docker:
+            name: ca.orderer.organnet.com
+            hostname: ca.orderer.organnet.com
+            port: 17050
+          ibp:
+            display_name: "Orderer CA"
+        orderer: &Orderer
+          id: "Orderer1"
+          identity: "Orderer1"
+          secret: "Orderer1pw"
+          tls:
+            enabled: false
+            identity: "Orderer1tls"
+            secret: "Orderer1tlspw"
+          consortium:
+            members:
+              - *Donor
+              - *Hospital
+              - *GAO
+          docker:
+            name: orderer.organnet.com
+            hostname: orderer.organnet.com
+            port: 17051
+            operations_port: 17052
+          ibp:
+            display_name: "Orderer1"
+            cluster_name: "OrdererCluster"
+        nodes: "{{ playbook_dir }}/nodes/Orderer"
+        wallet: "{{ playbook_dir }}/wallets/Orderer"
+        gateways: "{{ playbook_dir }}/gateways/Orderer"
+    channels:
+      - &Organchannel
+        name: organchannel
+        orderer: *Orderer
+        members:
+          - <<: *Donor
+            committing_peers:
+              - *DonorPeer1
+              - *DonorPeer2
+             
+            anchor_peers:
+              - *DonorPeer1
+          - <<: *Hospital
+            committing_peers:
+              - *HospitalPeer1
+              - *HospitalPeer2
+            
+            anchor_peers:
+              - *HospitalPeer1
+          - <<: *GAO
+            committing_peers:
+              - *GAOPeer1
+            
+            anchor_peers:
+              - *GAOPeer1
+    
+    gateways:
+      - name: Donor gateway
+        organization:
+          <<: *Donor
+          gateway_peers:
+            - <<: *DonorPeer1
+      - name: Hospital gateway
+        organization:
+          <<: *Hospital
+          gateway_peers:
+            - <<: *HospitalPeer1
+      - name: GAO gateway
+        organization:
+          <<: *GAO
+          gateway_peers:
+            - <<: *GAOPeer1
+  roles:
+    - ibm.blockchain_platform_manager

@@ -1,0 +1,38 @@
+[
+    {
+        "name":"CollectionOne",
+        "policy":{
+            "identities":[
+                {
+                    "role":{
+                        "name":"member",
+                        "mspId":"HospitalMSP"
+                    }
+                },
+                {
+                    "role":{
+                        "name":"member",
+                        "mspId":"DonorMSP"
+                    }
+                }
+            ],
+            "policy":{
+                "1-of":[
+                    {
+                        "signed-by":0
+
+                    },
+                    {
+                        "signed-by":1
+                    }
+                    
+                ]
+            }
+        },
+        "requiredPeerCount":1,
+        "maxPeerCount":1,
+        "blockToLive":0,
+        "memberOnlyRead":true,
+        "memberOnlyWrite":true
+    }
+]

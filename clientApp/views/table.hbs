@@ -1,0 +1,32 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/dashboards.css' />
+<h1>Donor Details</h1>
+
+<a class="nav-link" id="home" href="/">Home </a>
+
+<br><br>
+    <table id="vehicleDetails">
+      <tr>
+        <th>Donor Id</th>
+        <th>Donor Name</th>
+        <th>Organ Type</th>
+        <th>Blood Group</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+      </tr>
+
+      {{#Cardata}}
+      <tr class="">
+        {{!-- <td><button type="button" onclick="QData(event)" class="btn login">Query batch</button></td> --}}
+        <td>{{Record.donorId}}</td>
+        <td>{{Record.donorName}}</td>
+        <td>{{Record.organType}}</td>
+        <td>{{Record.donorGrp}}</td>
+        <td>{{Record.donorPh}}</td>
+        <td>{{Record.donorAdd}}</td> 
+        
+       
+      </tr>
+      {{/Cardata}}
+    </table>
+    <script src='/javascripts/main.js'></script>

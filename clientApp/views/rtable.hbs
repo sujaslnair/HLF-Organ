@@ -1,0 +1,39 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/dashboards.css' />
+
+
+<a class="nav-link" id="home" href="/recipient">Home </a>
+
+ <div class="form-modal">
+
+    <div id="man-form">
+        <h3>View - By Hospital</h3>
+        <form id="manform" method="POST">
+            <table>
+                    
+            <input id="QuerypId" type="text" placeholder="Enter Hospital Id"/>
+                       
+            </table>
+            <button type="button" onclick="hospitalQuery(event)" class="btn login">Query Hospital</button>
+             
+        </form>
+
+    </div>
+</div>   
+<br><br>
+    <table id="vehicleDetails">
+      <tr>
+        <th>Patient Id</th>
+        <th>Patient Name</th>
+        <th>Hospital</th>
+        <th>Blood Group</th>
+        <th>Organ</th>
+        <th>Severity</th>
+        <th>Date</th>
+        <th>Donor Id</th>
+        <th>Donor Name</th>
+      </tr>
+  
+    </table>
+    
+    <script src='/javascripts/recipient.js'></script>
