@@ -28,10 +28,10 @@ async​ ​ createPrivateAsset​(ctx​,privateAssetId​) {
     const​ ​ privateAsset​ = {};
     const​ ​ transientData​ = ​ ctx​.stub.getTransient();
 
-    if (transientData.size === 0|| !​transientData​.has('privatevalue')){
+    if (transientData.size === 0|| !​transientData​.has('privateValue')){
         throw new Error(`The privateValue key was not specified in transient data `);
     }
-    privateAsset.privatevalue=transientData.get('privatevalue').toString('utf8');
+    privateAsset.privateValue=transientData.get('privateValue').toString('utf8');
     ​ 
     await ctx.stub.putPrivateData(myCollectionName,privateAssetId,Buffer.from(JSON.stringify(privateAsset)));
 
