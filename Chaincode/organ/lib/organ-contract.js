@@ -9,7 +9,7 @@ const shim = require("fabric-shim");
 
 //PDC Collection name
 
-const​ ​ myCollectionName​ = ​ "CollectionOne"​ ;
+const​ ​ myCollectionName​ = ​ 'CollectionOne'​ ;
 class OrganContract extends Contract {
 
 // Private Data collection//
